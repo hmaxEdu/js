@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zenith - Your Daily Focus</title>
+
+    <!-- Google Fonts: Poppins & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Feather Icons (for demo purposes) -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <style>
+        /* ------------------------- */
+        /* --- VISUAL IDENTITY --- */
+        /* ------------------------- */
+        :root {
+            --bg-color: #121826;
+            --surface-color: #1D2333;
+            --accent-color: #00F5D4;
+            --text-primary: #E0E0E0;
+            --text-secondary: #8D93A0;
+            --border-color: rgba(255, 255, 255, 0.1);
+            
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Inter', sans-serif;
+
+            --border-radius-sm: 8px;
+            --border-radius-md: 12px;
+        }
+
+        /* ------------------------- */
+        /* --- GLOBAL & RESET --- */
+        /* ------------------------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: auto 1fr auto;
+            gap: 2rem;
+            height: 100%;
+        }
+
+        /* ------------------------- */
+        /* --- HEADER & GREETING --- */
+        /* ------------------------- */
+        header {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        .header-widget {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .header-widget i {
+            width: 20px;
+            height: 20px;
+            stroke-width: 1.5px;
+        }
+
+        /* ------------------------- */
+        /* --- MAIN CONTENT GRID --- */
+        /* ------------------------- */
+
+        .main-focus {
+            grid-column: 1 / span 8;
+            grid-row: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .sidebar {
+            grid-column: 9 / -1;
+            grid-row: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .card {
+            background-color: var(--surface-color);
+            border-radius: var(--border-radius-md);
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .card h2 {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card h2 span {
+            font-weight: 400;
+            color: var(--text-secondary);
+        }
+
+        .card p {
+            color: var(--text-secondary);
+        }
+
+        /* --- To-Do List Styling --- */
+        .todo-list {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+            transition: opacity 0.3s ease;
+        }
+
+        .todo-item:last-child {
+            border-bottom: none;
+        }
+
+        .todo-item.completed {
+            opacity: 0.5;
+        }
+
+        .todo-item.completed label {
+            text-decoration: line-through;
+        }
+
+        .todo-item input[type="checkbox"] {
+            display: none; /* Hide default checkbox */
+        }
+        
+        .custom-checkbox {
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--text-secondary);
+            border-radius: 50%;
+            margin-right: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+
+        .todo-item input[type="checkbox"]:checked + .custom-checkbox {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+        
+        .todo-item input[type="checkbox"]:checked + .custom-checkbox i {
+            display: block;
+            color: var(--bg-color);
+        }
+        
+        .custom-checkbox i {
+            display: none;
+            width: 16px;
+            height: 16px;
+        }
+
+        .todo-item label {
+            flex-grow: 1;
+            cursor: pointer;
+        }
+
+        .add-task-form {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .add-task-form input {
+            flex-grow: 1;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            padding: 0.75rem 1rem;
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 1rem;
+        }
+
+        .add-task-form button {
+            background-color: var(--accent-color);
+            border: none;
+            color: var(--bg-color);
+            font-family: var(--font-body);
+            font-weight: 700;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .add-task-form button:hover {
+            transform: scale(1.05);
+        }
+
+        /* --- Sidebar Widgets --- */
+        .widget-card {
+            padding: 1.5rem;
+        }
+
+        .widget-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .quote-text {
+            font-style: italic;
+        }
+
+        .quote-author {
+            text-align: right;
+            margin-top: 1rem;
+            color: var(--text-secondary);
+        }
+
+        /* ------------------------- */
+        /* --- FOOTER --- */
+        /* ------------------------- */
+        footer {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding-top: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        /* ------------------------- */
+        /* --- RESPONSIVENESS --- */
+        /* ------------------------- */
+        @media (max-width: 992px) {
+            .main-focus {
+                grid-column: 1 / -1;
+            }
+            .sidebar {
+                grid-column: 1 / -1;
+                grid-row: 3;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            .container {
+                gap: 1rem;
+            }
+            header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            .card {
+                padding: 1.5rem;
+            }
+            .card h2 {
+                font-size: 1.5rem;
+            }
+            .add-task-form {
+                flex-direction: column;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <header>
+            <div class="logo">Zenith<span>.</span></div>
+            <div class="header-widget">
+                <i data-feather="sun"></i>
+                <span>21°C in San Francisco</span>
+            </div>
+        </header>
+
+        <main class="main-focus">
+            <div class="card">
+                <h2>Good Afternoon, Alex<span>.</span></h2>
+                <p>What is your main focus for today?</p>
+                <!-- This would be an editable field in a real app -->
+                <div class="add-task-form">
+                    <input type="text" value="Finish frontend project proposal" readonly>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Today's Tasks</h3>
+                <ul class="todo-list">
+                    <li class="todo-item completed">
+                        <input type="checkbox" id="task1" checked>
+                        <span class="custom-checkbox">
+                           <i data-feather="check"></i>
+                        </span>
+                        <label for="task1">Drink coffee and prepare for the day</label>
+                    </li>
+                    <li class="todo-item">
+                        <input type="checkbox" id="task2">
+                         <span class="custom-checkbox">
+                           <i data-feather="check"></i>
+                        </span>
+                        <label for="task2">Complete the Zenith UI template</label>
+                    </li>
+                    <li class="todo-item">
+                        <input type="checkbox" id="task3">
+                         <span class="custom-checkbox">
+                           <i data-feather="check"></i>
+                        </span>
+                        <label for="task3">Push project to GitHub</label>
+                    </li>
+                </ul>
+                <form class="add-task-form">
+                    <input type="text" placeholder="Add a new task...">
+                    <button type="submit">Add Task</button>
+                </form>
+            </div>
+        </main>
+
+        <aside class="sidebar">
+            <div class="card widget-card">
+                <h3><i data-feather="coffee"></i>Quote of the Day</h3>
+                <p class="quote-text">"The secret of getting ahead is getting started."</p>
+                <p class="quote-author">- Mark Twain</p>
+            </div>
+             <div class="card widget-card">
+                <h3><i data-feather="zap"></i>Quick Actions</h3>
+                <!-- In a real app, these would be functional buttons -->
+                <p style="color: var(--text-secondary); text-align: center;">Coming Soon!</p>
+            </div>
+        </aside>
+
+        <footer>
+            <p>Designed to help you find your focus. Made with ❤️.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        // This is to initialize the Feather Icons
+        feather.replace();
+    </script>
+
+</body>
+</html>

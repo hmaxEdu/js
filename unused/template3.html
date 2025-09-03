@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura - Your Personal Soundscape for Focus</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- VISUAL IDENTITY: CSS Custom Properties --- */
+        :root {
+            --dark-bg: #0D0C1D;
+            --glass-bg: rgba(23, 22, 45, 0.5);
+            --light-text: #E0E0E0;
+            --muted-text: #A0A0A0;
+            --accent-gradient: linear-gradient(90deg, #7F00FF, #00BFFF);
+            --border-color: rgba(255, 255, 255, 0.1);
+
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        /* --- CSS RESET & BASE STYLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            line-height: 1.6;
+            overflow-x: hidden; /* Prevents horizontal scroll */
+            
+            /* Subtle background noise for texture */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill='%2317162d' fill-opacity='0.4'%3E%3Crect x='0' y='0' width='100' height='100'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            color: var(--muted-text);
+            margin-bottom: 1rem;
+        }
+
+        a {
+            color: var(--light-text);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #00BFFF; /* Cyan part of the gradient */
+        }
+
+        /* --- UTILITY CLASSES --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 6rem 0;
+        }
+
+        .gradient-text {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-family: var(--font-heading);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--accent-gradient);
+            color: #fff;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 191, 255, 0.4);
+            color: #fff;
+        }
+
+        /* --- HEADER --- */
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 1.5rem 0;
+            background: rgba(13, 12, 29, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        /* --- HERO SECTION --- */
+        #hero {
+            padding-top: 10rem;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #hero h1 {
+            max-width: 800px;
+            margin: 0 auto 1.5rem;
+        }
+
+        #hero .subtitle {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+        }
+        
+        /* --- FEATURES SECTION --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            background: var(--glass-bg);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(5px);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .feature-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--light-text);
+        }
+
+        /* --- PRICING SECTION --- */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .price-card {
+            background: var(--glass-bg);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .price-card.popular {
+            border-color: #00BFFF;
+            box-shadow: 0 0 30px rgba(0, 191, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .price-card .plan-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--muted-text);
+        }
+
+        .price-card .price {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 1rem 0;
+        }
+        
+        .price-card .price span {
+            font-size: 1rem;
+            color: var(--muted-text);
+        }
+        
+        .price-card ul {
+            list-style: none;
+            margin: 1.5rem 0;
+            width: 100%;
+        }
+
+        .price-card li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--muted-text);
+        }
+        
+        .price-card li::before {
+            content: '✓';
+            color: #00BFFF;
+            margin-right: 0.5rem;
+        }
+
+        .price-card .btn {
+            margin-top: auto; /* Pushes button to bottom */
+            width: 100%;
+            text-align: center;
+        }
+        
+        /* --- FOOTER --- */
+        .main-footer {
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        /* --- RESPONSIVENESS --- */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            
+            .section { padding: 4rem 0; }
+            
+            .main-nav { display: none; } /* Simple hiding for demo. A real site needs a hamburger menu. */
+
+            #hero { min-height: 80vh; padding-top: 8rem; }
+            
+            .price-card.popular {
+                transform: scale(1); /* Reset popular card scale on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="#" class="logo gradient-text">Aura</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </nav>
+            <a href="#pricing" class="btn btn-primary">Get Started</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section id="hero">
+            <div class="container">
+                <h1>Find Your Focus. <br><span class="gradient-text">Master Your Day.</span></h1>
+                <p class="subtitle">Aura generates personalized, AI-driven soundscapes to help you eliminate distractions, enter deep work, and achieve your goals.</p>
+                <a href="#pricing" class="btn btn-primary">Try Aura Free</a>
+            </div>
+        </section>
+
+        <!-- FEATURES SECTION -->
+        <section id="features" class="section">
+            <div class="container">
+                <h2>Why You'll Love Aura</h2>
+                <div class="features-grid">
+                    <!-- Feature 1 -->
+                    <div class="feature-card">
+                        <div class="icon">🎧</div>
+                        <h3>AI Soundscapes</h3>
+                        <p>Our adaptive AI listens to your environment and crafts the perfect audio stream to mask distractions and boost focus.</p>
+                    </div>
+                    <!-- Feature 2 -->
+                    <div class="feature-card">
+                        <div class="icon">📈</div>
+                        <h3>Productivity Tracking</h3>
+                        <p>Monitor your focus sessions, track your progress, and identify your most productive hours with our insightful analytics.</p>
+                    </div>
+                    <!-- Feature 3 -->
+                    <div class="feature-card">
+                        <div class="icon">🌐</div>
+                        <h3>Cross-Platform Sync</h3>
+                        <p>Your soundscapes and session history are seamlessly synced across all your devices—desktop, web, and mobile.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRICING SECTION -->
+        <section id="pricing" class="section">
+            <div class="container">
+                <h2>Choose Your Plan</h2>
+                <div class="pricing-grid">
+                    <!-- Pricing Card 1 -->
+                    <div class="price-card">
+                        <div class="plan-name">Basic</div>
+                        <div class="price">$0 <span>/ month</span></div>
+                        <ul>
+                            <li>Basic Sound Library</li>
+                            <li>30-Minute Sessions</li>
+                            <li>Community Support</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">Start for Free</a>
+                    </div>
+                    <!-- Pricing Card 2 (Popular) -->
+                    <div class="price-card popular">
+                        <div class="plan-name">Pro</div>
+                        <div class="price">$7 <span>/ month</span></div>
+                        <ul>
+                            <li>Full Sound Library</li>
+                            <li>Unlimited Sessions</li>
+                            <li>AI Soundscapes</li>
+                            <li>Productivity Analytics</li>
+                            <li>Priority Support</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">Go Pro</a>
+                    </div>
+                    <!-- Pricing Card 3 -->
+                    <div class="price-card">
+                        <div class="plan-name">Team</div>
+                        <div class="price">$15 <span>/ user / month</span></div>
+                        <ul>
+                            <li>All Pro Features</li>
+                            <li>Team Dashboard</li>
+                            <li>Centralized Billing</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">Contact Sales</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2024 Aura. All rights reserved. Find your focus.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

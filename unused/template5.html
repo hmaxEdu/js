@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zenith - Find Your Focus</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for Icons (example) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ------------------- */
+        /* -- VISUAL IDENTITY -- */
+        /* ------------------- */
+        :root {
+            --bg-primary: #0D1120;
+            --bg-secondary: #1A2033;
+            --text-primary: #E4E6EB;
+            --text-secondary: #A0A8C3;
+            --accent-teal: #23D997;
+            --accent-lavender: #8C78D8;
+            --accent-gradient: linear-gradient(90deg, var(--accent-teal), var(--accent-lavender));
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        /* ------------------- */
+        /* -- GLOBAL STYLES -- */
+        /* ------------------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        h1 { font-size: 3.5rem; line-height: 1.2; }
+        h2 { font-size: 2.5rem; }
+        h3 { font-size: 1.5rem; }
+
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        section {
+            padding: 6rem 0;
+        }
+
+        /* Gradient Text Utility */
+        .gradient-text {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        
+        /* ------------------- */
+        /* -- COMPONENTS -- */
+        /* ------------------- */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-family: var(--font-body);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--accent-gradient);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 20px rgba(140, 120, 216, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(35, 217, 151, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--bg-secondary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        /* ------------------- */
+        /* -- HEADER -- */
+        /* ------------------- */
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 1.5rem 0;
+            background: rgba(13, 17, 32, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(26, 32, 51, 0.5);
+        }
+        
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .main-nav a:hover {
+            color: var(--accent-teal);
+        }
+
+        /* ------------------- */
+        /* -- HERO SECTION -- */
+        /* ------------------- */
+        .hero {
+            padding-top: 12rem;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+        }
+        
+        .hero .actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .hero-image-placeholder {
+            margin-top: 4rem;
+            height: 300px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border: 1px solid #2a3352;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-style: italic;
+            color: var(--text-secondary);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        /* ------------------- */
+        /* -- FEATURES SECTION -- */
+        /* ------------------- */
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: var(--bg-secondary);
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            border: 1px solid #2a3352;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .feature-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        
+        /* ------------------- */
+        /* -- TESTIMONIALS -- */
+        /* ------------------- */
+        .testimonial-card {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-teal);
+        }
+
+        .testimonial-card p.quote {
+            font-style: italic;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-lavender);
+        }
+        
+        .author-name {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .author-title {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* ------------------- */
+        /* -- FOOTER -- */
+        /* ------------------- */
+        .main-footer {
+            background: var(--bg-secondary);
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .main-footer .container {
+            border-top: 1px solid #2a3352;
+            padding-top: 3rem;
+        }
+        
+        .main-footer p {
+            font-size: 0.9rem;
+        }
+
+        /* ------------------- */
+        /* -- RESPONSIVENESS -- */
+        /* ------------------- */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+
+            .main-nav { display: none; } /* Simplified for template, you'd add a hamburger menu here */
+            
+            .hero { padding-top: 8rem; height: auto; }
+            .hero .actions { flex-direction: column; }
+            .hero-image-placeholder { height: 200px; }
+
+            section { padding: 4rem 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="#" class="logo gradient-text">Zenith</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#">Pricing</a></li>
+                </ul>
+            </nav>
+            <a href="#" class="btn btn-secondary">Sign In</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Find Your Focus. <br><span class="gradient-text">Achieve Your Flow.</span></h1>
+                    <p>Zenith is your personal sanctuary for deep work. Drown out the noise, manage your tasks, and unlock your true productivity potential.</p>
+                    <div class="actions">
+                        <a href="#" class="btn btn-primary">Get Started For Free</a>
+                        <a href="#" class="btn btn-secondary">How it Works</a>
+                    </div>
+                    <div class="hero-image-placeholder">
+                        <p>Clean & minimalist app UI mockup here</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURES SECTION -->
+        <section id="features">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Everything You Need to Get in the Zone</h2>
+                    <p>Tools designed for focus, not distraction.</p>
+                </div>
+                <div class="features-grid">
+                    <!-- Feature 1 -->
+                    <div class="feature-card">
+                        <div class="icon"><i class="fas fa-tasks"></i></div>
+                        <h3>Integrated Task List</h3>
+                        <p>Organize your day with a simple, powerful to-do list. Prioritize what matters and watch your progress.</p>
+                    </div>
+                    <!-- Feature 2 -->
+                    <div class="feature-card">
+                        <div class="icon"><i class="fas fa-stopwatch"></i></div>
+                        <h3>Focus Timer</h3>
+                        <p>Use the Pomodoro Technique or set custom timers to work in sprints. Zenith tracks your focus sessions automatically.</p>
+                    </div>
+                    <!-- Feature 3 -->
+                    <div class="feature-card">
+                        <div class="icon"><i class="fas fa-headphones-alt"></i></div>
+                        <h3>Ambient Soundscapes</h3>
+                        <p>Choose from a library of high-quality sounds like rain, coffee shops, or white noise to create your perfect work environment.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIALS SECTION -->
+        <section id="testimonials" style="background-color: var(--bg-secondary);">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Loved by Professionals Worldwide</h2>
+                    <p>Don't just take our word for it.</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="quote">"Zenith has fundamentally changed how I approach my workday. The combination of the timer and ambient sounds is a game-changer for my concentration. I'm getting more done in less time."</p>
+                    <div class="testimonial-author">
+                        <img src="https://i.pravatar.cc/100?u=a042581f4e29026704d" alt="Author photo">
+                        <div>
+                            <div class="author-name">Sarah Johnson</div>
+                            <div class="author-title">Freelance Developer</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2024 Zenith. All rights reserved. Find your focus.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

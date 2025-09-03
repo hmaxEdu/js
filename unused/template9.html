@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura - Your Digital Sanctuary</title>
+    
+    <!-- Google Fonts: Poppins for headings, Inter for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@500;600&display=swap" rel="stylesheet">
+    
+    <!-- Feather Icons for minimalist icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <style>
+        /* ------------------- */
+        /* --- VISUAL IDENTITY & SETUP --- */
+        /* ------------------- */
+        :root {
+            --bg-primary: #1E2A3B;
+            --bg-secondary: #2A3A4E;
+            --accent-primary: #FF8C6B;
+            --accent-secondary-1: #B5A5D9;
+            --accent-secondary-2: #82C4C4;
+            --text-light: #EAEFF5;
+            --text-muted: #93A1B8;
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        /* ------------------- */
+        /* --- UTILITY & REUSABLE CLASSES --- */
+        /* ------------------- */
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+        
+        h1 { font-size: 2.8rem; }
+        h2 { font-size: 2rem; }
+        p { margin-bottom: 1rem; color: var(--text-muted); }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            border: none;
+            border-radius: 50px;
+            font-family: var(--font-heading);
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-primary);
+            color: var(--bg-primary);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 140, 107, 0.2);
+        }
+        
+        /* ------------------- */
+        /* --- HEADER & NAVIGATION --- */
+        /* ------------------- */
+        .main-header {
+            padding: 1.5rem 0;
+        }
+
+        .main-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: var(--text-light);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-light);
+        }
+        
+        /* ------------------- */
+        /* --- HERO SECTION --- */
+        /* ------------------- */
+        .hero {
+            text-align: center;
+            padding: 6rem 0;
+            background: linear-gradient(45deg, var(--accent-secondary-1), var(--accent-secondary-2));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h1 {
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem auto;
+            color: var(--text-muted);
+        }
+        
+        /* ------------------- */
+        /* --- SESSIONS SECTION --- */
+        /* ------------------- */
+        .sessions-section {
+            padding: 4rem 0;
+        }
+
+        .sessions-section h2 {
+            text-align: center;
+        }
+
+        .sessions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .session-card {
+            background-color: var(--bg-secondary);
+            border-radius: 15px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+
+        .session-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .card-header span {
+            font-size: 0.9rem;
+            color: var(--accent-primary);
+            font-weight: 500;
+        }
+        
+        .card-icon { color: var(--accent-secondary-1); }
+
+        .session-card h3 {
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+        
+        .card-footer {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+        }
+        
+        .duration { color: var(--text-muted); }
+        
+        .play-button {
+            background: var(--accent-primary);
+            color: var(--bg-primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        /* ------------------- */
+        /* --- FOOTER --- */
+        /* ------------------- */
+        .main-footer {
+            text-align: center;
+            padding: 3rem 0;
+            border-top: 1px solid var(--bg-secondary);
+            margin-top: 3rem;
+        }
+        
+        .main-footer p {
+            font-size: 0.9rem;
+        }
+
+        /* ------------------- */
+        /* --- RESPONSIVE DESIGN --- */
+        /* ------------------- */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.8rem; }
+            
+            .nav-links {
+                display: none; /* In a real app, you'd replace this with a hamburger menu */
+            }
+
+            .hero {
+                padding: 4rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <nav class="main-nav container">
+            <a href="#" class="logo">Aura</a>
+            <ul class="nav-links">
+                <li><a href="#">Soundscapes</a></li>
+                <li><a href="#">Timers</a></li>
+                <li><a href="#">Breathing</a></li>
+            </ul>
+            <a href="#" class="btn btn-primary">Start Session</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Find Your Calm. Center Your Mind.</h1>
+                <p>
+                    Escape the noise with curated soundscapes, focus timers, and guided breathing exercises designed to bring clarity and peace to your day.
+                </p>
+                <a href="#sessions" class="btn btn-primary">Explore Sessions</a>
+            </div>
+        </section>
+
+        <section id="sessions" class="sessions-section container">
+            <h2>Featured Sessions</h2>
+            <div class="sessions-grid">
+                <!-- Session Card 1 -->
+                <div class="session-card">
+                    <div class="card-header">
+                        <span>SOUNDSCAPE</span>
+                        <i data-feather="droplet" class="card-icon"></i>
+                    </div>
+                    <h3>Gentle Rain</h3>
+                    <p>Listen to the soothing sound of a light rain to wash away stress and improve focus.</p>
+                    <div class="card-footer">
+                        <span class="duration">60 min loop</span>
+                        <div class="play-button">
+                            <i data-feather="play"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Session Card 2 -->
+                <div class="session-card">
+                    <div class="card-header">
+                        <span>FOCUS TIMER</span>
+                        <i data-feather="clock" class="card-icon"></i>
+                    </div>
+                    <h3>Deep Work Block</h3>
+                    <p>A 25-minute Pomodoro timer with subtle background tones to keep you in the zone.</p>
+                    <div class="card-footer">
+                        <span class="duration">25 min</span>
+                        <div class="play-button">
+                            <i data-feather="play"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Session Card 3 -->
+                <div class="session-card">
+                    <div class="card-header">
+                        <span>BREATHING</span>
+                        <i data-feather="wind" class="card-icon"></i>
+                    </div>
+                    <h3>Box Breathing</h3>
+                    <p>A guided 5-minute exercise to calm your nervous system and regulate your breath.</p>
+                    <div class="card-footer">
+                        <span class="duration">5 min</span>
+                        <div class="play-button">
+                            <i data-feather="play"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2024 Aura. Created with peace.</p>
+        </div>
+    </footer>
+
+    <script>
+        // This script initializes the Feather Icons
+        feather.replace();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terra - Sustainable Travel Guide</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ------------------- */
+        /* VISUAL IDENTITY & SETUP */
+        /* ------------------- */
+        :root {
+            --primary-color: #0A4D68;
+            --secondary-color: #F8F6F4;
+            --accent-color: #E48F45;
+            --text-color: #333333;
+            --subtle-text-color: #777777;
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Lato', sans-serif;
+            --container-width: 1100px;
+            --spacing-unit: 8px;
+        }
+
+        /* Basic Reset */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text-color);
+            background-color: var(--secondary-color);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-heading);
+            color: var(--primary-color);
+            line-height: 1.2;
+            margin-bottom: calc(var(--spacing-unit) * 2);
+        }
+
+        h1 { font-size: 2.5rem; }
+        h2 { font-size: 2rem; }
+        h3 { font-size: 1.25rem; }
+
+        p {
+            margin-bottom: calc(var(--spacing-unit) * 2);
+        }
+
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        a:hover {
+            opacity: 0.8;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* ------------------- */
+        /* UTILITY CLASSES     */
+        /* ------------------- */
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 calc(var(--spacing-unit) * 2);
+        }
+        
+        .section-padding {
+            padding: calc(var(--spacing-unit) * 8) 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: calc(var(--spacing-unit) * 1.5) calc(var(--spacing-unit) * 4);
+            font-family: var(--font-heading);
+            font-weight: 600;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            opacity: 1;
+        }
+
+        /* ------------------- */
+        /* HEADER & NAVIGATION */
+        /* ------------------- */
+        .main-header {
+            background-color: transparent;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .main-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: calc(var(--spacing-unit) * 4);
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            font-weight: 600;
+            padding: 5px;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--accent-color);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .nav-links a:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+
+        /* ------------------- */
+        /* HERO SECTION        */
+        /* ------------------- */
+        .hero {
+            position: relative;
+            height: 70vh;
+            min-height: 500px;
+            background: linear-gradient(rgba(10, 77, 104, 0.7), rgba(10, 77, 104, 0.5)), url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            color: white;
+            font-size: 3.5rem;
+            margin-bottom: calc(var(--spacing-unit) * 2);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: calc(var(--spacing-unit) * 4);
+            opacity: 0.9;
+        }
+
+
+        /* ------------------- */
+        /* DESTINATIONS SECTION */
+        /* ------------------- */
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: calc(var(--spacing-unit) * 4);
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        }
+        
+        .card-img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: calc(var(--spacing-unit) * 3);
+        }
+        
+        .card h3 {
+            margin-bottom: calc(var(--spacing-unit) * 1);
+        }
+        
+        .card-location {
+            color: var(--subtle-text-color);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-unit);
+            margin-bottom: var(--spacing-unit);
+        }
+        
+        .card-location svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--subtle-text-color);
+        }
+
+
+        /* ------------------- */
+        /* FEATURED ARTICLE    */
+        /* ------------------- */
+        .featured-article {
+            background-color: white;
+        }
+        
+        .featured-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: calc(var(--spacing-unit) * 6);
+        }
+
+        .featured-img img {
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* ------------------- */
+        /* FOOTER              */
+        /* ------------------- */
+        .main-footer {
+            background-color: var(--primary-color);
+            color: rgba(255,255,255,0.8);
+            padding: calc(var(--spacing-unit) * 6) 0;
+            text-align: center;
+        }
+
+        .footer-content p {
+            margin: 0;
+        }
+
+
+        /* ------------------- */
+        /* RESPONSIVENESS      */
+        /* ------------------- */
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .hero h1 { font-size: 2.5rem; }
+            h2 { font-size: 1.8rem; }
+
+            .nav-links {
+                display: none; /* In a real project, you'd add a hamburger menu */
+            }
+
+            .featured-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-img {
+                margin-bottom: calc(var(--spacing-unit) * 3);
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <nav class="main-nav">
+                <a href="#" class="logo">Terra</a>
+                <ul class="nav-links">
+                    <li><a href="#">Destinations</a></li>
+                    <li><a href="#">Stories</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container hero-content">
+                <h1>Travel Consciously. Explore Sustainably.</h1>
+                <p>Discover breathtaking destinations that cherish and protect our planet. Your next unforgettable, eco-friendly adventure starts here.</p>
+                <a href="#destinations" class="btn btn-primary">Explore Destinations</a>
+            </div>
+        </section>
+
+        <section id="destinations" class="section-padding">
+            <div class="container">
+                <h2 style="text-align: center;">Featured Destinations</h2>
+                <p style="text-align: center; max-width: 600px; margin: 0 auto calc(var(--spacing-unit) * 5) auto;">Handpicked locations known for their commitment to nature, culture, and sustainability.</p>
+
+                <div class="destinations-grid">
+                    <!-- Card 1 -->
+                    <article class="card">
+                        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Misty mountains and a serene lake" class="card-img">
+                        <div class="card-content">
+                            <p class="card-location">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                New Zealand
+                            </p>
+                            <h3>Fiordland National Park</h3>
+                            <p>Home to dramatic landscapes and a model for conservation tourism.</p>
+                        </div>
+                    </article>
+
+                    <!-- Card 2 -->
+                    <article class="card">
+                        <img src="https://images.unsplash.com/photo-1502602898657-3e91760c0341?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="A lush tropical rainforest" class="card-img">
+                        <div class="card-content">
+                             <p class="card-location">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                Costa Rica
+                            </p>
+                            <h3>Monteverde Cloud Forest</h3>
+                            <p>A biodiversity hotspot championing ecotourism and research.</p>
+                        </div>
+                    </article>
+
+                    <!-- Card 3 -->
+                    <article class="card">
+                        <img src="https://images.unsplash.com/photo-1528181304800-259b08848526?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Ancient temples surrounded by trees" class="card-img">
+                        <div class="card-content">
+                             <p class="card-location">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                Japan
+                            </p>
+                            <h3>The Temples of Kyoto</h3>
+                            <p>Experience urban harmony where ancient traditions meet green innovation.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-article section-padding">
+            <div class="container">
+                <div class="featured-grid">
+                    <div class="featured-img">
+                        <img src="https://images.unsplash.com/photo-1542156829-1661383438a6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Person holding a compass">
+                    </div>
+                    <div class="featured-content">
+                        <h3>Our Guide to Ethical Travel</h3>
+                        <p>Traveling is a privilege, and with it comes a responsibility to the places we visit. Learn how to minimize your footprint, support local communities, and make your journeys more meaningful.</p>
+                        <p>From packing light to choosing the right tour operators, our guide is packed with actionable tips for the conscious traveler.</p>
+                        <a href="#" class="btn btn-primary">Read The Guide</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container footer-content">
+            <p>&copy; 2023 Terra. All rights reserved.</p>
+            <p>A demonstration of a modern, responsive website concept.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

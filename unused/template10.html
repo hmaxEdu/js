@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stellar - Explore the Cosmos</title>
+
+    <!-- Google Fonts: Poppins & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <style>
+        /* ------------------------- */
+        /* --- VISUAL IDENTITY --- */
+        /* ------------------------- */
+        :root {
+            --bg-primary: #0D1117;
+            --bg-secondary: #161B22;
+            --accent-primary: #8A44F2;
+            --accent-secondary: #00DFD8;
+            --text-heading: #E6EDF3;
+            --text-body: #B0BAC6;
+            --border-color: #30363d;
+
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Inter', sans-serif;
+
+            --container-width: 1120px;
+            --border-radius: 8px;
+        }
+
+        /* ------------------------- */
+        /* --- BASE & RESET --- */
+        /* ------------------------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-body);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-heading);
+            color: var(--text-heading);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        h1 { font-size: 3.5rem; }
+        h2 { font-size: 2.25rem; }
+        h3 { font-size: 1.5rem; }
+
+        a {
+            color: var(--accent-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--text-heading);
+        }
+        
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* ------------------------- */
+        /* --- LAYOUT & UTILITIES --- */
+        /* ------------------------- */
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .section {
+            padding: 6rem 0;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .section-subtitle {
+            color: var(--accent-primary);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ------------------------- */
+        /* --- COMPONENTS --- */
+        /* ------------------------- */
+        
+        /* --- Header --- */
+        .main-header {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background-color: rgba(13, 17, 23, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+            z-index: 100;
+        }
+        
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--text-heading);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .logo i { color: var(--accent-secondary); }
+
+        .main-nav a {
+            color: var(--text-body);
+            margin-left: 1.5rem;
+            font-weight: 500;
+        }
+        .main-nav a.active, .main-nav a:hover {
+            color: var(--text-heading);
+        }
+
+        /* --- Buttons --- */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 700;
+            font-family: var(--font-body);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-primary);
+            color: #fff;
+        }
+        
+        .btn-primary:hover {
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(138, 68, 242, 0.2);
+        }
+        
+        /* --- Hero Section --- */
+        .hero {
+            padding: 8rem 0;
+            text-align: center;
+            background: radial-gradient(ellipse at bottom, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+        }
+        .hero h1 {
+            background: linear-gradient(90deg, var(--text-heading) 0%, var(--accent-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
+        .hero p {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            font-size: 1.125rem;
+        }
+        
+        /* --- Event Cards --- */
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .event-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-primary);
+        }
+        
+        .event-card .icon {
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+        }
+        
+        .event-card h3 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .event-date {
+            color: var(--accent-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        /* --- Footer --- */
+        .main-footer {
+            border-top: 1px solid var(--border-color);
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+        .main-footer .container {
+            text-align: center;
+            color: var(--text-body);
+        }
+        
+        /* ------------------------- */
+        /* --- RESPONSIVENESS --- */
+        /* ------------------------- */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 1.75rem; }
+            
+            .main-header { padding: 1rem 0; }
+            .main-nav { display: none; /* For simplicity, hide on mobile. You can build a hamburger menu! */ }
+            
+            .section { padding: 4rem 0; }
+            .hero { padding: 5rem 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="#" class="logo">
+                <i data-feather="moon"></i>
+                Stellar
+            </a>
+            <nav class="main-nav">
+                <a href="#" class="active">Events</a>
+                <a href="#">Constellations</a>
+                <a href="#">Learn</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <h1>Your Window to the Cosmos</h1>
+                <p>Discover upcoming meteor showers, planetary alignments, and other celestial events. Your journey to the stars starts here.</p>
+                <a href="#events" class="btn btn-primary">Explore Events</a>
+            </div>
+        </section>
+
+        <!-- Events Section -->
+        <section id="events" class="section">
+            <div class="container">
+                <div class="text-center">
+                    <p class="section-subtitle">What's Happening</p>
+                    <h2>Upcoming Celestial Events</h2>
+                </div>
+
+                <div class="events-grid">
+                    <!-- Event Card 1 -->
+                    <div class="event-card">
+                        <div class="icon"><i data-feather="star" stroke-width="1.5" width="36" height="36"></i></div>
+                        <h3>Perseids Meteor Shower</h3>
+                        <p class="event-date">August 12-13, 2024</p>
+                        <p>The most popular meteor shower of the year, known for its bright and frequent "shooting stars".</p>
+                    </div>
+
+                    <!-- Event Card 2 -->
+                    <div class="event-card">
+                        <div class="icon"><i data-feather="circle" stroke-width="1.5" width="36" height="36"></i></div>
+                        <h3>Saturn at Opposition</h3>
+                        <p class="event-date">September 8, 2024</p>
+                        <p>Saturn will be at its closest approach to Earth, making it a perfect time to view its iconic rings.</p>
+                    </div>
+
+                    <!-- Event Card 3 -->
+                    <div class="event-card">
+                        <div class="icon"><i data-feather="eye" stroke-width="1.5" width="36" height="36"></i></div>
+                        <h3>Annular Solar Eclipse</h3>
+                        <p class="event-date">October 2, 2024</p>
+                        <p>A "ring of fire" eclipse visible from parts of South America. Partial eclipse visible elsewhere.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2024 Stellar. Gaze into the unknown.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // This script activates the Feather Icons
+        feather.replace()
+    </script>
+
+</body>
+</html>

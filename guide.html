@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Development Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        h2 {
+            color: #6e8efb;
+            margin: 25px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        h3 {
+            color: #777;
+            margin: 20px 0 10px;
+        }
+        
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+        }
+        
+        .full-width {
+            grid-column: 1 / -1;
+        }
+        
+        ul {
+            padding-left: 20px;
+            margin: 15px 0;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: #6e8efb;
+            color: white;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .tech-item {
+            background: #f0f4ff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .tech-item:hover {
+            transform: translateY(-5px);
+            background: #e6ecff;
+        }
+        
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .tag {
+            color: #f92672;
+        }
+        
+        .attr {
+            color: #a6e22e;
+        }
+        
+        .value {
+            color: #e6db74;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .tech-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Website Development Guide</h1>
+        <p>How to successfully build your website with a developer friend</p>
+    </header>
+    
+    <div class="container">
+        <div class="card">
+            <h2><span class="step-number">1</span> Planning Phase</h2>
+            <ul>
+                <li>Define the website's purpose and goals</li>
+                <li>Identify your target audience</li>
+                <li>Create a sitemap and user flow</li>
+                <li>Choose a tech stack with your developer friend</li>
+                <li>Set up a version control system (Git)</li>
+            </ul>
+        </div>
+        
+        <div class="card">
+            <h2><span class="step-number">2</span> Design Phase</h2>
+            <ul>
+                <li>Create wireframes for key pages</li>
+                <li>Establish a visual identity (colors, typography)</li>
+                <li>Design responsive layouts for different screen sizes</li>
+                <li>Create a style guide for consistency</li>
+                <li>Gather or create visual assets</li>
+            </ul>
+        </div>
+        
+        <div class="card full-width">
+            <h2>Recommended Tech Stack</h2>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <h3>Frontend</h3>
+                    <p>HTML5, CSS3, JavaScript</p>
+                    <p>React or Vue.js (optional)</p>
+                </div>
+                <div class="tech-item">
+                    <h3>Styling</h3>
+                    <p>CSS Flexbox/Grid</p>
+                    <p>SASS/SCSS (optional)</p>
+                    <p>Tailwind CSS (optional)</p>
+                </div>
+                <div class="tech-item">
+                    <h3>Version Control</h3>
+                    <p>Git</p>
+                    <p>GitHub or GitLab</p>
+                </div>
+                <div class="tech-item">
+                    <h3>Deployment</h3>
+                    <p>Netlify</p>
+                    <p>Vercel</p>
+                    <p>GitHub Pages</p>
+                </div>
+                <div class="tech-item">
+                    <h3>Collaboration</h3>
+                    <p>Figma (design)</p>
+                    <p>Slack/Discord</p>
+                    <p>Trello/Notion</p>
+                </div>
+                <div class="tech-item">
+                    <h3>Backend (if needed)</h3>
+                    <p>Node.js</p>
+                    <p>Express</p>
+                    <p>MongoDB or Firebase</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2><span class="step-number">3</span> Development Workflow</h2>
+            <ul>
+                <li>Set up a project structure</li>
+                <li>Divide tasks based on skills</li>
+                <li>Implement mobile-first design</li>
+                <li>Use semantic HTML</li>
+                <li>Write clean, commented code</li>
+                <li>Test across browsers and devices</li>
+            </ul>
+        </div>
+        
+        <div class="card">
+            <h2><span class="step-number">4</span> Collaboration Tips</h2>
+            <ul>
+                <li>Schedule regular sync-up meetings</li>
+                <li>Use pull requests for code reviews</li>
+                <li>Establish coding conventions</li>
+                <li>Document your code and decisions</li>
+                <li>Divide work by features or pages</li>
+            </ul>
+        </div>
+        
+        <div class="card full-width">
+            <h2>Example HTML Structure</h2>
+            <div class="code-block">
+                <span class="tag">&lt;!DOCTYPE html&gt;</span><br>
+                <span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="value">"en"</span><span class="tag">&gt;</span><br>
+                <span class="tag">&lt;head&gt;</span><br>
+                &nbsp;&nbsp;<span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="value">"UTF-8"</span><span class="tag">&gt;</span><br>
+                &nbsp;&nbsp;<span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="value">"viewport"</span> <span class="attr">content</span>=<span class="value">"width=device-width, initial-scale=1.0"</span><span class="tag">&gt;</span><br>
+                &nbsp;&nbsp;<span class="tag">&lt;title&gt;</span>Document<span class="tag">&lt;/title&gt;</span><br>
+                &nbsp;&nbsp;<span class="tag">&lt;link</span> <span class="attr">rel</span>=<span class="value">"stylesheet"</span> <span class="attr">href</span>=<span class="value">"styles.css"</span><span class="tag">&gt;</span><br>
+                <span class="tag">&lt;/head&gt;</span><br>
+                <span class="tag">&lt;body&gt;</span><br>
+                &nbsp;&nbsp;<span class="tag">&lt;header&gt;</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;nav&gt;</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;!-- Navigation content --&gt;</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;/nav&gt;</span><br>
+                &nbsp;&nbsp;<span class="tag">&lt;/header&gt;</span><br>
+                &nbsp;&nbsp;<span class="tag">&lt;main&gt;</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;!-- Main content --&gt;</span><br>
+                &nbsp;&nbsp;<span class="tag">&lt;/main&gt;</span><br>
+                &nbsp;&nbsp;<span class="tag">&lt;footer&gt;</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;!-- Footer content --&gt;</span><br>
+                &nbsp;&nbsp;<span class="tag">&lt;/footer&gt;</span><br>
+                &nbsp;&nbsp;<span class="tag">&lt;script</span> <span class="attr">src</span>=<span class="value">"script.js"</span><span class="tag">&gt;&lt;/script&gt;</span><br>
+                <span class="tag">&lt;/body&gt;</span><br>
+                <span class="tag">&lt;/html&gt;</span>
+            </div>
+        </div>
+        
+        <div class="card full-width">
+            <h2>Next Steps</h2>
+            <ol>
+                <li>Finalize your website idea and goals</li>
+                <li>Sketch out the basic layout and pages</li>
+                <li>Choose a color scheme and typography</li>
+                <li>Set up your development environment</li>
+                <li>Start with a simple HTML structure</li>
+                <li>Style with CSS, focusing on mobile-first</li>
+                <li>Add interactivity with JavaScript</li>
+                <li>Test and refine your website</li>
+                <li>Deploy and share with the world!</li>
+            </ol>
+        </div>
+    </div>
+</body>
+</html>

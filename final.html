@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura - Your Personal Soundscape for Focus</title>
+    
+    <!-- Google Fonts -->
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    <style>
+        /* --- VISUAL IDENTITY: CSS Custom Properties --- */
+        :root {
+            --dark-bg: #0D0C1D;
+            --glass-bg: rgba(23, 22, 45, 0.5);
+            --glass-bg-darker: rgba(13, 12, 29, 0.7);
+            --light-text: #E0E0E0;
+            --muted-text: #A0A0A0;
+            --accent-gradient: linear-gradient(90deg, #7F00FF, #00BFFF);
+            --accent-cyan: #00BFFF;
+            --accent-purple: #7F00FF;
+            --accent-green: #2ECC71;
+            --accent-orange: #E67E22;
+            --border-color: rgba(255, 255, 255, 0.1);
+
+            --font-heading: 'DM sans', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        /* --- CSS RESET & BASE STYLES --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body); background-color: var(--dark-bg); color: var(--light-text);
+            line-height: 1.6; overflow-x: hidden;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill='%2317162d' fill-opacity='0.4'%3E%3Crect x='0' y='0' width='100' height='100'/%3E%3C/g%3E%3C/svg%3E");
+        }
+        h1, h2, h3 { font-family: var(--font-heading); font-weight: 700; }
+        h1 { font-size: 3.5rem; line-height: 1.1; }
+        h2 { font-size: 2.5rem; text-align: center; margin-bottom: 1rem; }
+        p { color: var(--muted-text); margin-bottom: 1rem; }
+        a { color: var(--light-text); text-decoration: none; transition: color 0.3s ease; }
+        a:hover { color: var(--accent-cyan); }
+
+        /* --- UTILITY CLASSES --- */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+        .section { padding: 6rem 0; }
+        .gradient-text { background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-fill-color: transparent; }
+        .btn { display: inline-block; padding: 0.8rem 2rem; border-radius: 50px; font-weight: 600; font-family: var(--font-heading); transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer; }
+        .btn-primary { background: var(--accent-gradient); color: #fff; border: none; }
+        .btn-primary:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(0, 191, 255, 0.4); color: #fff; }
+
+        /* --- HEADER --- */
+        .main-header { position: fixed; top: 0; left: 0; width: 100%; z-index: 100; padding: 1.5rem 0; background: rgba(13, 12, 29, 0.8); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color); }
+        .main-header .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; }
+        .main-nav ul { display: flex; list-style: none; gap: 2rem; }
+
+        /* --- HERO SECTION --- */
+        #hero { padding-top: 10rem; text-align: center; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+        #hero h1 { max-width: 800px; margin: 0 auto 1.5rem; }
+        #hero .subtitle { font-size: 1.2rem; max-width: 600px; margin: 0 auto 2.5rem; }
+        
+        /* --- NEW: LOGO CLOUD SECTION --- */
+        #logo-cloud { padding-top: 0; padding-bottom: 6rem; }
+        .logo-cloud-container {
+            text-align: center;
+        }
+        .logo-cloud-container .subheading {
+            color: var(--muted-text);
+            margin-bottom: 2rem;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        .logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 4rem;
+        }
+        .logos img {
+            max-height: 85px;
+            opacity: 0.6;
+            filter: grayscale(100%);
+            transition: opacity 0.3s ease, filter 0.3s ease;
+        }
+        .logos img:hover {
+            opacity: 1;
+            filter: grayscale(0%);
+        }
+
+        /* --- NEW: TABBED FEATURES SECTION --- */
+        .tabs-container {
+            max-width: 900px;
+            margin: 4rem auto 0;
+            background: var(--glass-bg);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+        .tab-nav {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .tab-button {
+            flex: 1;
+            padding: 1rem;
+            background: transparent;
+            border: none;
+            color: var(--muted-text);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .tab-button.active {
+            color: var(--light-text);
+        }
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent-gradient);
+        }
+        .tab-content {
+            display: none;
+            padding: 2.5rem;
+            animation: fadeIn 0.5s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .tab-content h3 { font-size: 1.8rem; margin-bottom: 1rem; color: var(--light-text); }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* --- PRICING SECTION --- */
+        .pricing-toggle-container { display: flex; justify-content: center; align-items: center; gap: 1.5rem; margin-top: 4rem; margin-bottom: -2rem; }
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 4rem; }
+        .price-card { background: var(--glass-bg); padding: 2.5rem; border-radius: 15px; border: 1px solid var(--border-color); display: flex; flex-direction: column; align-items: center; }
+        .price-card.popular { border-color: var(--accent-cyan); box-shadow: 0 0 30px rgba(0, 191, 255, 0.3); transform: scale(1.05); }
+        .price-card .plan-name { font-size: 1.2rem; font-weight: 600; color: var(--muted-text); }
+        .price-card .price { font-size: 3rem; font-weight: 700; margin: 1rem 0; }
+        .price-card .price-yearly { display: none; }
+        .price-card .price span { font-size: 1rem; color: var(--muted-text); }
+        .price-card ul { list-style: none; margin: 1.5rem 0; width: 100%; }
+        .price-card li { padding: 0.5rem 0; border-bottom: 1px solid var(--border-color); color: var(--muted-text); }
+        .price-card li::before { content: '✓'; color: var(--accent-cyan); margin-right: 0.5rem; }
+        .price-card .btn { margin-top: auto; width: 100%; text-align: center; }
+        #pricing.yearly-active .price-monthly { display: none; }
+        #pricing.yearly-active .price-yearly { display: block; }
+        
+        /* --- FAQ SECTION --- */
+        .faq-container { max-width: 800px; margin: 4rem auto 0; }
+        .faq-item { border-bottom: 1px solid var(--border-color); background: var(--glass-bg); }
+        .faq-item:first-child { border-top-left-radius: 15px; border-top-right-radius: 15px; }
+        .faq-item:last-child { border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; border-bottom: none; }
+        .faq-question { padding: 1.5rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 500; font-size: 1.1rem; list-style: none; }
+        .faq-question::-webkit-details-marker { display: none; }
+        .faq-icon { font-size: 1.5rem; transition: transform 0.3s ease; font-weight: 400; color: var(--muted-text); }
+        .faq-answer { padding: 0 1.5rem 1.5rem; overflow: hidden; }
+        .faq-item[open] .faq-question { color: var(--accent-cyan); }
+        .faq-item[open] .faq-icon { transform: rotate(45deg); color: var(--accent-cyan); }
+
+        /* --- UI COMPONENT SHOWCASE --- */
+        .component-showcase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 4rem; align-items: start; }
+        .component-box { background: var(--glass-bg-darker); padding: 2.5rem; border-radius: 15px; border: 1px solid var(--border-color); }
+        .component-box h3 { margin-bottom: 2rem; text-align: center; color: var(--light-text); }
+        
+        /* Form Styles */
+        .aura-form .form-group { margin-bottom: 1.5rem; }
+        .aura-form label { display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--muted-text); }
+        .aura-form input { width: 100%; padding: 0.8rem 1rem; background-color: rgba(13, 12, 29, 0.8); border: 1px solid var(--border-color); border-radius: 8px; color: var(--light-text); font-family: var(--font-body); font-size: 1rem; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
+        .aura-form input:focus { outline: none; border-color: var(--accent-cyan); box-shadow: 0 0 10px rgba(0, 191, 255, 0.3); }
+        .aura-form button { width: 100%; text-align: center; }
+
+        /* NEW: Alerts */
+        .alerts-container { display: flex; flex-direction: column; gap: 1rem; }
+        .alert { padding: 1rem 1.5rem; border-radius: 8px; border-left: 4px solid; background: var(--glass-bg); display: flex; align-items: center; gap: 1rem; }
+        .alert-icon { font-size: 1.5rem; }
+        .alert.alert-success { border-color: var(--accent-green); } .alert.alert-success .alert-icon { color: var(--accent-green); }
+        .alert.alert-warning { border-color: var(--accent-orange); } .alert.alert-warning .alert-icon { color: var(--accent-orange); }
+        .alert.alert-info { border-color: var(--accent-cyan); } .alert.alert-info .alert-icon { color: var(--accent-cyan); }
+
+        /* NEW: Progress Bar */
+        .progress-bar-container { margin-top: 2rem; }
+        .progress-bar { width: 100%; height: 10px; background-color: var(--glass-bg-darker); border-radius: 5px; border: 1px solid var(--border-color); overflow: hidden; }
+        .progress-bar-fill { height: 100%; width: 65%; background: var(--accent-gradient); border-radius: 5px; }
+        
+        /* NEW: Badges */
+        .badge { display: inline-block; padding: 0.2rem 0.8rem; font-size: 0.8rem; font-weight: 500; border-radius: 50px; }
+        .badge-popular { background: var(--accent-gradient); color: white; }
+        .badge-new { background-color: var(--glass-bg); border: 1px solid var(--accent-green); color: var(--accent-green); }
+        
+        /* --- CTA SECTION --- */
+        #cta .container { max-width: 900px; }
+        .cta-box { text-align: center; padding: 4rem 2rem; border-radius: 20px; background: var(--glass-bg); border: 1px solid var(--border-color); box-shadow: 0 0 40px rgba(127, 0, 255, 0.2); }
+        .cta-box h2 { font-size: 2.8rem; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1rem; }
+        .cta-box p { max-width: 600px; margin: 0 auto 2rem; font-size: 1.1rem; }
+        .cta-box .btn { padding: 1rem 3rem; font-size: 1.1rem; }
+        
+        /* --- NEW: MODAL --- */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(13, 12, 29, 0.6); backdrop-filter: blur(8px); z-index: 1000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-content { background: var(--dark-bg); border: 1px solid var(--border-color); border-radius: 15px; padding: 3rem; width: 90%; max-width: 500px; position: relative; transform: scale(0.9); transition: transform 0.3s ease; }
+        .modal-overlay.active .modal-content { transform: scale(1); }
+        .modal-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; color: var(--muted-text); font-size: 2rem; cursor: pointer; line-height: 1; }
+        .modal-content h2 { text-align: center; margin-bottom: 2rem; }
+        
+        /* --- FOOTER --- */
+        .main-footer { padding: 3rem 0 2rem; text-align: center; border-top: 1px solid var(--border-color); margin-top: 6rem; }
+        
+        /* --- RESPONSIVENESS --- */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; } h2 { font-size: 2rem; }
+            .section { padding: 4rem 0; }
+            .main-nav { display: none; }
+            #hero { min-height: 80vh; padding-top: 8rem; }
+            .price-card.popular { transform: scale(1); }
+            .component-showcase-grid { grid-template-columns: 1fr; }
+            .cta-box h2 { font-size: 2.2rem; }
+            .tab-nav { flex-direction: column; }
+        }
+
+        /* --- Toggle Switch Styles (reused for pricing) --- */
+        .toggle-switch { display: flex; align-items: center; gap: 1rem; }
+        .switch { position: relative; display: inline-block; width: 60px; height: 34px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--glass-bg-darker); border: 1px solid var(--border-color); transition: .4s; border-radius: 34px; }
+        .slider:before { position: absolute; content: ""; height: 26px; width: 26px; left: 4px; bottom: 3px; background-color: var(--muted-text); transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background: var(--accent-gradient); border-color: transparent; }
+        input:checked + .slider:before { transform: translateX(26px); background-color: white; }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="#" class="logo gradient-text">Aura</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+            </nav>
+            <a href="#" class="btn btn-primary" id="get-started-btn">Get Started</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section id="hero">
+            <div class="container">
+                <h1>Find Your Focus. <br><span class="gradient-text">Master Your Day.</span></h1>
+                <p class="subtitle">Aura generates personalized, AI-driven soundscapes to help you eliminate distractions, enter deep work, and achieve your goals.</p>
+                <a href="#pricing" class="btn btn-primary">Try Aura Free</a>
+            </div>
+        </section>
+
+        <!-- (NEW) LOGO CLOUD SECTION -->
+        <section id="logo-cloud">
+            <div class="container logo-cloud-container">
+                <p class="subheading">TRUSTED BY TEAMS AT WORLD-CLASS COMPANIES</p>
+                <div class="logos">
+                    <img src="svg/adobe-2.svg" alt="Company Logo 1">
+                    <img src="svg/aws-2.svg" alt="Company Logo 2">
+                    <img src="svg/gitlab.svg" alt="Company Logo 3">
+                    <img src="svg/honda-11.svg" alt="Company Logo 4">
+                    <img src="svg/lenovo-2.svg" alt="Company Logo 5">
+                </div>
+            </div>
+        </section>
+
+        <!-- (NEW) TABBED FEATURES SECTION -->
+        <section id="features" class="section">
+            <div class="container">
+                <h2>A Toolkit for Unbroken Concentration</h2>
+                <div class="tabs-container">
+                    <div class="tab-nav">
+                        <button class="tab-button active" data-tab="1">AI Soundscapes</button>
+                        <button class="tab-button" data-tab="2">Analytics</button>
+                        <button class="tab-button" data-tab="3">Integrations</button>
+                    </div>
+                    <div class="tab-content active" data-tab="1">
+                        <h3>Adaptive Audio Engine</h3>
+                        <p>Our intelligent engine analyzes ambient noise through your microphone and generates counter-frequencies to create a 'sound bubble'. It's not just noise masking; it's noise cancellation, personalized for your space in real-time.</p>
+                    </div>
+                    <div class="tab-content" data-tab="2">
+                        <h3>Productivity Insights</h3>
+                        <p>Track your focus sessions, discover your peak productivity hours, and see which soundscapes work best for you. Our dashboard provides actionable data to help you understand and optimize your work habits.</p>
+                    </div>
+                    <div class="tab-content" data-tab="3">
+                        <h3>Seamless Integration</h3>
+                        <p>Aura connects with your favorite tools. Automatically update your Slack status to 'Focusing' when you start a session, sync tasks from your calendar, and more. Works with Slack, Google Calendar, and Todoist.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRICING SECTION -->
+        <section id="pricing" class="section">
+            <div class="container">
+                <h2>Choose Your Plan</h2>
+                <!-- (NEW) Pricing Toggle -->
+                <div class="pricing-toggle-container">
+                    <span>Monthly</span>
+                    <label class="switch">
+                        <input type="checkbox" id="pricing-toggle">
+                        <span class="slider"></span>
+                    </label>
+                    <span>Yearly (Save 20%)</span>
+                </div>
+
+                <div class="pricing-grid">
+                    <div class="price-card">
+                        <div class="plan-name">Basic</div>
+                        <div class="price price-monthly">$0 <span>/ month</span></div>
+                        <div class="price price-yearly">$0 <span>/ year</span></div>
+                        <ul>
+                            <li>Basic Sound Library</li>
+                            <li>30-Minute Sessions</li>
+                            <li>Community Support</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">Start for Free</a>
+                    </div>
+                    <div class="price-card popular">
+                        <div class="plan-name">Pro <span class="badge badge-popular">Popular</span></div>
+                        <div class="price price-monthly">$7 <span>/ month</span></div>
+                        <div class="price price-yearly">$67 <span>/ year</span></div>
+                        <ul>
+                            <li>Full Sound Library</li>
+                            <li>Unlimited Sessions</li>
+                            <li>AI Soundscapes</li>
+                            <li>Productivity Analytics</li>
+                            <li>Priority Support</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">Go Pro</a>
+                    </div>
+                    <div class="price-card">
+                        <div class="plan-name">Team</div>
+                        <div class="price price-monthly">$15 <span>/ user / mo</span></div>
+                        <div class="price price-yearly">$144 <span>/ user / yr</span></div>
+                        <ul>
+                            <li>All Pro Features</li>
+                            <li>Team Dashboard</li>
+                            <li>Centralized Billing</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">Contact Sales</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ SECTION -->
+        <section id="faq" class="section">
+            <div class="container">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-container">
+                    <details class="faq-item">
+                        <summary class="faq-question"><span>What kind of sounds does Aura use?</span><span class="faq-icon">+</span></summary>
+                        <div class="faq-answer"><p>Aura uses a vast library of high-fidelity audio, including natural ambiances, white/pink/brown noise, and subtle electronic tones. Our AI intelligently blends these to create a unique soundscape.</p></div>
+                    </details>
+                    <details class="faq-item">
+                        <summary class="faq-question"><span>Is Aura available on mobile devices?</span><span class="faq-icon">+</span></summary>
+                        <div class="faq-answer"><p>Absolutely! The Pro plan includes seamless cross-platform syncing for web, desktop (Windows & macOS), and mobile (iOS & Android).</p></div>
+                    </details>
+                    <details class="faq-item">
+                        <summary class="faq-question"><span>Can I cancel my subscription at any time?</span><span class="faq-icon">+</span></summary>
+                        <div class="faq-answer"><p>Yes, you can cancel your Pro subscription at any time through your account dashboard. You will retain access to Pro features until the end of your current billing cycle.</p></div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- UI COMPONENT SHOWCASE -->
+        <section id="components" class="section">
+            <div class="container">
+                <h2>Core UI Elements</h2>
+                <div class="component-showcase-grid">
+                    <div class="component-box">
+                        <h3>Notifications</h3>
+                        <div class="alerts-container">
+                             <div class="alert alert-success">
+                                <span class="alert-icon">✓</span>
+                                <span>Profile updated successfully.</span>
+                            </div>
+                            <div class="alert alert-info">
+                                <span class="alert-icon">ℹ</span>
+                                <span>A new feature is available: Integrations.</span>
+                            </div>
+                            <div class="alert alert-warning">
+                                <span class="alert-icon">⚠</span>
+                                <span>Your free trial is ending in 3 days.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="component-box">
+                        <h3>Progress & Labels</h3>
+                         <span class="badge badge-popular">Popular</span>
+                         <span class="badge badge-new">New Feature</span>
+                         <div class="progress-bar-container">
+                            <p style="margin-bottom: 0.5rem; color: var(--muted-text);">Focus Session Progress</p>
+                            <div class="progress-bar">
+                                <div class="progress-bar-fill"></div>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA SECTION -->
+        <section id="cta" class="section">
+            <div class="container">
+                <div class="cta-box">
+                    <h2 class="gradient-text">Ready to Reclaim Your Focus?</h2>
+                    <p>Stop letting distractions dictate your day. Join thousands of users who are achieving more with Aura. Your first week is on us.</p>
+                    <a href="#pricing" class="btn btn-primary">Start Your Free Trial</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2024 Aura. All rights reserved. Find your focus.</p>
+        </div>
+    </footer>
+
+    <!-- (NEW) MODAL ELEMENT -->
+    <div class="modal-overlay" id="signup-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close-btn">&times;</button>
+            <h2 class="gradient-text">Join Aura Today</h2>
+            <form class="aura-form" onsubmit="event.preventDefault();">
+                <div class="form-group">
+                    <label for="modal-email">Email Address</label>
+                    <input type="email" id="modal-email" name="email" placeholder="you@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="modal-password">Password</label>
+                    <input type="password" id="modal-password" name="password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Create Account</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- (NEW) JAVASCRIPT FOR INTERACTIVITY -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- MODAL LOGIC ---
+            const getStartedBtn = document.getElementById('get-started-btn');
+            const signupModal = document.getElementById('signup-modal');
+            const closeModalBtn = document.getElementById('modal-close-btn');
+
+            if (getStartedBtn && signupModal) {
+                getStartedBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    signupModal.classList.add('active');
+                });
+            }
+            if (closeModalBtn) {
+                closeModalBtn.addEventListener('click', () => signupModal.classList.remove('active'));
+            }
+            // Close modal by clicking overlay
+            signupModal.addEventListener('click', (e) => {
+                if (e.target === signupModal) {
+                    signupModal.classList.remove('active');
+                }
+            });
+
+            // --- TABS LOGIC ---
+            const tabContainer = document.querySelector('.tabs-container');
+            if(tabContainer) {
+                const tabButtons = tabContainer.querySelectorAll('.tab-button');
+                const tabContents = tabContainer.querySelectorAll('.tab-content');
+
+                tabButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const tabId = button.dataset.tab;
+
+                        tabButtons.forEach(btn => btn.classList.remove('active'));
+                        tabContents.forEach(content => content.classList.remove('active'));
+
+                        button.classList.add('active');
+                        tabContainer.querySelector(`.tab-content[data-tab="${tabId}"]`).classList.add('active');
+                    });
+                });
+            }
+
+            // --- PRICING TOGGLE LOGIC ---
+            const pricingToggle = document.getElementById('pricing-toggle');
+            const pricingSection = document.getElementById('pricing');
+            if (pricingToggle && pricingSection) {
+                pricingToggle.addEventListener('change', () => {
+                    pricingSection.classList.toggle('yearly-active', pricingToggle.checked);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
